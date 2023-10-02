@@ -1,9 +1,0 @@
-train_dataset_nums = [1, 2, 3, 5, 6, 7]
-test_dataset_nums = [4, 8]
-# test_dataset_nums = [2, 3]
-learning_rate = 0.001
-sequence_size = 15
-batch_size = 16
-hidden_layers_separate_models = 0
-hidden_layers_hyper_models = 3
-number_of_rounds = 10
