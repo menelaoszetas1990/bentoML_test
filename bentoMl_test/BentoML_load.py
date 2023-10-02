@@ -25,7 +25,7 @@ class BentoMl:
         scaler_X = bentoml_model.custom_objects['scaler_X']
         scaler_Y = bentoml_model.custom_objects['scaler_Y']
 
-        X_test = pd.read_csv('../data/cape1.csv', usecols=['trim', 'sog', 'stw', 'wspeedbf', 'wdir']).head(10).values
+        X_test = pd.read_csv('../data/cape1.csv', usecols=['trim', 'sog', 'stw', 'wspeedbf', 'wdir']).head(100).values
 
         X_test_scaled = scaler_X.transform(X_test[:, :])
         test_X = to_sequences(X_test_scaled, 10)
