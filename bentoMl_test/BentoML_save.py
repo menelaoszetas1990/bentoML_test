@@ -14,7 +14,7 @@ class BentoMl:
         pass
 
     @staticmethod
-    def save_model(_max_epochs=10, _learning_rate=0.001, _sequence_size=10, _batch_size=16, _hidden_layers=1):
+    def save_model(_max_epochs=100, _learning_rate=0.001, _sequence_size=12, _batch_size=16, _hidden_layers=1):
         # Training the model on the Training set
         def to_sequences(dataset_x, dataset_y, _sequence_size=1):
             x, y = [], []
@@ -26,10 +26,10 @@ class BentoMl:
 
             return np.array(x), np.array(y)
 
-        hyper_dataset = pd.read_csv('../data/cape1.csv', usecols=['trim', 'sog', 'stw', 'wspeedbf', 'wdir', 'me_power'])
+        hyper_dataset = pd.read_csv('../data/data_consumption.csv', usecols=['Time', 'consumption'])
 
-        df_X = hyper_dataset[['trim', 'sog', 'stw', 'wspeedbf', 'wdir']].values
-        df_y = hyper_dataset['me_power'].values.reshape(-1, 1)
+        df_X = hyper_dataset[['consumption']].values
+        df_y = hyper_dataset['consumption'].values.reshape(-1, 1)
 
         # Splitting the dataset into the Training set and Test set
         X_train, X_test, y_train, y_test = train_test_split(df_X, df_y, test_size=.1, random_state=1, shuffle=False)
@@ -77,7 +77,7 @@ class BentoMl:
                   validation_data=(test_X, test_y), verbose=0, callbacks=[lr])
 
         print('BendoML start saving')
-        bentoml.keras.save_model('cape1_LSTM', model, custom_objects={"scaler_X": sc1, "scaler_Y": sc2})
+        bentoml.keras.save_model('energy_consumption', model, custom_objects={"scaler_X": sc1, "scaler_Y": sc2})
         print('BendoML end saving')
 
 
